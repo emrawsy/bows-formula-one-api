@@ -1,7 +1,7 @@
 package models
 
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDateTime
 
 import org.scalatest.{FreeSpec, MustMatchers}
 import play.api.libs.json.Json

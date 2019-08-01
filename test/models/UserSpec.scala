@@ -7,14 +7,15 @@ class UserSpec extends FreeSpec with MustMatchers {
 
   "User model" - {
 
-    val id = "A1"
+    val id = CardId("id")
     val employeeId = "AB001"
     val name = "name"
     val email = "email@mail.com"
     val mobileNumber = "0987654321"
     val userBalance = 125.55
+    val pin = 1
 
-    "must serialise intp JSON" in {
+    "must serialise into JSON" in {
 
       val user = User(
         _id = id,
@@ -22,7 +23,8 @@ class UserSpec extends FreeSpec with MustMatchers {
         name = name,
         email = email,
         mobileNumber = mobileNumber,
-        balance = userBalance
+        balance = userBalance,
+        pinNumber = pin
       )
 
       val expectedJson = Json.obj(
@@ -31,7 +33,8 @@ class UserSpec extends FreeSpec with MustMatchers {
         "name" -> name,
         "email" -> email,
         "mobileNumber" -> mobileNumber,
-        "balance" -> userBalance
+        "balance" -> userBalance,
+        "pinNumber" -> pin
       )
 
       Json.toJson(user) mustEqual expectedJson
@@ -45,7 +48,8 @@ class UserSpec extends FreeSpec with MustMatchers {
         "name" -> name,
         "email" -> email,
         "mobileNumber" -> mobileNumber,
-        "balance" -> userBalance
+        "balance" -> userBalance,
+        "pinNumber" -> pin
       )
 
       val expectedUser = User(
@@ -54,7 +58,8 @@ class UserSpec extends FreeSpec with MustMatchers {
         name = name,
         email = email,
         mobileNumber = mobileNumber,
-        balance = userBalance
+        balance = userBalance,
+        pinNumber = pin
       )
 
       json.as[User] mustEqual expectedUser

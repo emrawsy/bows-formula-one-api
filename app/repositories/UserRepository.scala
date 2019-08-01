@@ -1,5 +1,6 @@
 package repositories
 
+import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
 import javax.inject.Inject
 import models.{CardId, User}
 import play.api.libs.json.{JsObject, Json}
@@ -59,25 +60,26 @@ class UserRepository @Inject()(mongo: ReactiveMongoApi)(implicit ec: ExecutionCo
   //deletes a user by ID
   def delete(card: CardId) = {
     collection.flatMap(
-      _.findAndRemove(Json.obj(
-        "_id" -> card._id), None, None, WriteConcern.Default, None, None, Seq.empty)
+      _.findAndRemove(Json.obj("_id" -> card._id), None, None, WriteConcern.Default, None, None, Seq.empty).map(
+        _.value
+      )
     )
   }
-
-  def decrease(cardId: CardId, originalValue: BigDecimal, value: BigDecimal): Future[Option[User]] = {
+//decreases balance
+  def decrease(cardId: CardId, value: BigDecimal): Future[Option[User]] = {
     collection.flatMap {
       result =>
         val selector: JsObject = Json.obj("_id" -> cardId._id)
-        val modifier: JsObject = Json.obj("$set" -> Json.obj("value" -> (originalValue - value)))
+        val modifier: JsObject = Json.obj("$inc" -> Json.obj("balance" -> -value))
         findAndUpdate(result, selector, modifier).map(_.result[User])
     }
   }
-
-  def increase(cardId: CardId, originalValue: BigDecimal, value: BigDecimal): Future[Option[User]] = {
+//increases balance
+  def increase(cardId: CardId, value: BigDecimal): Future[Option[User]] = {
     collection.flatMap {
       result =>
         val selector: JsObject = Json.obj("_id" -> cardId._id)
-        val modifier: JsObject = Json.obj("$set" -> Json.obj("value" -> (originalValue + value)))
+        val modifier: JsObject = Json.obj("$inc" -> Json.obj("balance" -> value))
         findAndUpdate(result, selector, modifier).map(_.result[User])
     }
   }

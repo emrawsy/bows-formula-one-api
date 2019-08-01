@@ -1,10 +1,21 @@
 package models
 
+import play.api.libs.json.{JsString, Json, OFormat, Reads, Writes}
 import play.api.mvc.PathBindable
 
 case class CardId(_id: String)
 
 object CardId {
+
+  implicit lazy val reads: Reads[CardId] = {
+    import play.api.libs.json._
+    (__ \ "_id").read[String].map(CardId(_))
+  }
+
+  implicit lazy val writes: Writes[CardId] = {
+    import play.api.libs.json._
+    (__ \ "_id").write[String].contramap[CardId](_._id)
+  }
 
   implicit val pathBindable: PathBindable[CardId] = {
     new PathBindable[CardId] {
@@ -22,3 +33,4 @@ object CardId {
     }
   }
 }
+

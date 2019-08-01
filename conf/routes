@@ -6,21 +6,21 @@
 # An example controller showing a sample home page
 GET     /                                       controllers.HomeController.index
 
-GET     /user/:_id                               controllers.UserIdCardController.findUser(_id:CardId)
+GET     /user/:_id                              controllers.UserIdCardController.findUser(_id:CardId)
 
-GET     /user/get-balance/:_id                   controllers.UserIdCardController.findUserBalance(_id:CardId)
+GET     /user/get-balance/:_id                  controllers.UserIdCardController.findUserBalance(_id:CardId)
 
 POST    /user                                   controllers.UserIdCardController.postNewUser
 
-DELETE  /user/:_id                               controllers.UserIdCardController.deleteUser(_id:CardId)
+DELETE  /user/:_id                              controllers.UserIdCardController.deleteUser(_id:CardId)
 
-POST    /update-user/:_id/:key/:data             controllers.UserIdCardController.updateUser(_id:CardId, key:String, data:String)
+POST    /update-user/:_id/:key/:data            controllers.UserIdCardController.updateUser(_id:CardId, key:String, data:String)
 
-POST    /transaction/:_id/:transactionAmount     controllers.UserIdCardController.transaction(_id:CardId, transactionAmount: Double)
+POST    /transaction/:_id/:transactionAmount    controllers.UserIdCardController.transaction(_id:CardId, transactionAmount: Double)
 
-POST    /top-up/:_id/:topUpAmount                controllers.UserIdCardController.topUpBalance(_id:CardId, topUpAmount: Double)
+POST    /top-up/:_id/:topUpAmount               controllers.UserIdCardController.topUpBalance(_id:CardId, topUpAmount: Double)
 
-GET     /present/:_id                            controllers.UserIdCardController.present(_id:CardId)
+GET     /present/:_id                           controllers.UserIdCardController.present(_id:CardId)
 
 
 # Map static resources from the /public folder to the /assets URL path
