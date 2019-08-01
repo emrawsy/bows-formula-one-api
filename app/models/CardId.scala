@@ -9,12 +9,12 @@ object CardId {
 
   implicit lazy val reads: Reads[CardId] = {
     import play.api.libs.json._
-    (__ \ "_id").read[String].map(CardId(_))
+    __.read[String].map(CardId(_))
   }
 
-  implicit lazy val writes: Writes[CardId] = {
-    import play.api.libs.json._
-    (__ \ "_id").write[String].contramap[CardId](_._id)
+  implicit lazy val writes: Writes[CardId] = Writes {
+    cardId =>
+      JsString(cardId._id)
   }
 
   implicit val pathBindable: PathBindable[CardId] = {

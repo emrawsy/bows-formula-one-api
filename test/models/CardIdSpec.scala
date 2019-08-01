@@ -1,7 +1,7 @@
 package models
 
 import org.scalatest.{EitherValues, FreeSpec, MustMatchers, OptionValues}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import play.api.mvc.PathBindable
 
 class CardIdSpec extends FreeSpec with MustMatchers with EitherValues with OptionValues {
@@ -17,9 +17,7 @@ class CardIdSpec extends FreeSpec with MustMatchers with EitherValues with Optio
 
       val cardId = CardId(validCardId)
 
-      val expectedJson = Json.obj(
-        "_id" -> validCardId
-      )
+      val expectedJson = JsString(validCardId)
 
       Json.toJson(cardId) mustEqual expectedJson
     }
@@ -28,9 +26,9 @@ class CardIdSpec extends FreeSpec with MustMatchers with EitherValues with Optio
       val expectedCardId = CardId(
         _id = validCardId
       )
-      val json = Json.obj(
-        "_id" -> validCardId
-      )
+
+      val json = JsString(validCardId)
+
       json.as[CardId] mustEqual expectedCardId
 
     }

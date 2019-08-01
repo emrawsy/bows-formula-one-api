@@ -28,9 +28,8 @@ class UserIdCardController @Inject()(cc: ControllerComponents,
             case None => sessionRepo.create(UserSession(cardId._id, LocalDateTime.now)).map(_ => Ok(s"Welcome ${user.name}"))
           }
         case None => Future.successful(NotFound("Please register for an ID"))
-        case _ => Future.successful(BadRequest("Failed request."))
       } recoverWith {
-        case _: JsResultException => Future.successful(BadRequest(s"Could not parse Json to User model. Incorrect data!"))
+        case e: JsResultException => Future.successful(BadRequest(s"Could not parse Json to User model. Incorrect data"))
         case e => Future.successful(BadRequest(s"Failed with the following exception: $e"))
       }
   }

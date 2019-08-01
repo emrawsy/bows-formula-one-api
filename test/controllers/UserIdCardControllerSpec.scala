@@ -103,7 +103,7 @@ class UserIdCardControllerSpec extends FreeSpec with MustMatchers with MockitoSu
         val result: Future[Result] = route(app, request).value
 
         status(result) mustBe BAD_REQUEST
-        contentAsString(result) mustBe s"Could not parse Json to User model. Incorrect data!"
+        contentAsString(result) mustBe s"Could not parse Json to User model. Incorrect data"
 
         app.stop
       }
