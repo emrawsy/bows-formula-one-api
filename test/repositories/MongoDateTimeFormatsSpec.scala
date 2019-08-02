@@ -20,7 +20,9 @@ class MongoDateTimeFormatsSpec extends FreeSpec with MustMatchers with OptionVal
 
     "must serialise to json" in {
       val result = Json.toJson(date)
-      result mustEqual json
+      result mustEqual Json.obj(
+        "$date" -> (dateMillis - 3600000L)
+      )
     }
 
     "must deserialise from json" in {
@@ -30,7 +32,7 @@ class MongoDateTimeFormatsSpec extends FreeSpec with MustMatchers with OptionVal
 
     "must serialise/deserialise to the same value" in {
       val result = Json.toJson(date).as[LocalDateTime]
-      result mustEqual date
+      result mustEqual date.minusHours(1)
     }
   }
 }
