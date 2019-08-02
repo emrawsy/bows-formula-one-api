@@ -9,7 +9,7 @@ This project is a Scala application built for handling JSON api calls to and fro
 
 ## Running the service
 
-#####In order to use this service you need the following:
+####In order to use this service you need the following:
 * SBT 
 * Postman (for tests)
 * An instance of Mongo running (Compass or Robo3T)
