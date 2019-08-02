@@ -4,8 +4,6 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                                       controllers.HomeController.index
-
 GET     /user/:_id                              controllers.UserIdCardController.findUser(_id:CardId)
 
 GET     /user/get-balance/:_id                  controllers.UserIdCardController.findUserBalance(_id:CardId)

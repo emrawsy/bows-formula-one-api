@@ -1,7 +1,7 @@
 package models
 
 
-import java.time.LocalDateTime
+import java.time.{LocalDateTime, ZoneOffset}
 
 import org.scalatest.{FreeSpec, MustMatchers}
 import play.api.libs.json.Json
@@ -38,7 +38,7 @@ class UserSessionSpec extends FreeSpec with MustMatchers with MongoDateTimeForma
 
       val expectedUser = UserSession(
         _id = id,
-        lastUpdated = time
+        lastUpdated = time.minusHours(1)
       )
 
       json.as[UserSession] mustEqual expectedUser
